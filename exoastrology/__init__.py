@@ -1,0 +1,1 @@
+from .horoscope import generate
