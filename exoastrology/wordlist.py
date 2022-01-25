@@ -35,9 +35,11 @@ stars = ["HD 209458 b", "WASP-43 b", "LHS 1140 b", "Nu2-Lupi d", "51 Pegasi b", 
 		 "WD 1856 b", "GJ 1214 b", "TRAPPIST-1 e", "MOA-477 b", "HD 189733 b", "Proxima b", "WASP-33 b",
 		 "Kepler 1704 b"]
 
-aspects = ["conjunction", "sextile", "square", "trine", "opposition"]
+aspects = ["conjunction", "opposition", "transit", "eclipse", "observation", "orbit", "M sin i", "temperature",
+		   "tidal forces", "atmosphere", "hidden exomoon", "chemical composition", "oxygen biosignature",
+		   "precession", "inclination",]
 
-wanky_events = ["a large Electromagnetic disturbance", "Quantum Flux",
+wanky_events = ["a large Electromagnetic disturbance", "Quantum Flux", "stellar activity",
 		"the upcoming stellar transit", "Unusual radial motion", "candidate Exomoon discovery"]
 
 
@@ -55,7 +57,7 @@ good_feeling_adjs = ["romantic", "emotional", "reflective", "irreverent",
 bad_feeling_adjs = ["bitter", "disappointing", "frustrating"]
 
 
-good_emotive_adjs = ["cathartic", "healing", "mystical"]
+good_emotive_adjs = ["cathartic", "healing", "mystical",]
 
 bad_emotive_adjs = ["anti-climactic"]
 
@@ -74,7 +76,7 @@ good_emotive_nouns = ["healing", "catharsis", "mysticism", "transcendence",
 bad_feeling_nouns = ["bitterness", "disappointment", "sadness", "frustration",
 			"anger", "failure", "boredom", "tension"]
 
-bad_emotive_nouns = ["bad luck", "misfortune", "déjà vu"]
+bad_emotive_nouns = ["bad luck", "misfortune", "déjà vu", "scoop"]
 
 # Misc
 prediction_verbs = ["heralds", "marks", "foreshadows", "signifies"]
@@ -83,12 +85,9 @@ prediction_verbs = ["heralds", "marks", "foreshadows", "signifies"]
 avoid_list = [
 	"going on the AAS jobs register",
 	"starting a new paper",
-	"installing that Python package",
 	"networking at a workshop",
 	"data reduction",
 	"submitting an observing proposal",
-	"rigorous physical activity",
-	"operating heavy machinery",
 	"staying inside for extended periods of time",
 	"IDL",
 	"making life-changing decisions",
@@ -99,6 +98,24 @@ avoid_list = [
 	"making a new figure",
 	"submitting that pull request",
 	"checking the arXiv",
+	"submitting a paper",
+	"reading a paper",
+	"installing a new Python package",
+	"planning an observation",
+	"coffee",
+	"tea",
+	"caffeine",
+	"writing code",
+	"working on your next paper",
+	"checking your emails",
+	"speaking to superiors",
+	"spectroscopy",
+	"power laws",
+	"hot Jupiters",
+	"cold Jupiters",
+	"brown dwarfs",
+	"M dwarfs",
+	"publishing papers about atmospheric phosphine",
 ]
 
 # People you may meet
@@ -106,7 +123,7 @@ familiar_people = [
 	"your office-mate",
 	"your supervisor",
 	"your closest friend",
-	"that Postdoc you can always count on for Python questions",
+	"a postdoc you can count on for Python questions",
 	"your co-author",
 	"your mentor",
 ]
@@ -116,8 +133,6 @@ strange_people = [
 	"a professor",
 	"a staff scientist",
 	"an astronaut",
-	"a bus driver",
-	"a psychic",
 	"a musical friend",
 	"a mathematical friend",
 	"an acquaintance",
@@ -134,20 +149,18 @@ strange_people = [
 locations = [
 	("at", "an observatory"),
 	("in", "the office"),
+	("in", "a dream"),
 	("in", "a carpark"),
 	("at", "your house"),
 	("in", "your street"),
 	("near", "where you studied for your undergraduate degree"),
 	("in", "a bar"),
-	("in", "a supermarket"),
-	("by", "the side of the road"),
-	("in", "the centre of the city"),
-	("in", "the heart of suburbia"),
 	("on top of", "a telescope dome"),
+	("on", "Zoom"),
+	("at", "a conference"),
+	("at", "a workshop"),
 	("on", "a bus"),
 	("on", "a train"),
-	("on", "an airplane"),
-	("in", "a waiting room"),
 	("at", "a library")
 ]
 
@@ -156,8 +169,8 @@ neutral_discussions = [
 	"discussion",
 	"talk",
 	"conversation",
+	"meeting",
 	"debate",
-	"meeting"
 ]
 
 good_discussions = [
@@ -165,15 +178,15 @@ good_discussions = [
 	"intimate conversation",
 	"presentation",
 	"productive meeting",
-	"workshop"
 ]
 
 bad_discussions = [
 	"argument",
 	"fight",
+	"heated debate",
 	"altercation",
 	"terse chat",
-	"misunderstanding"
+	"misunderstanding",
 ]
 
 # Conversation topics (good or bad)
@@ -187,12 +200,26 @@ conversation_topics = [
 	"historical injustices of the Nobel Prize",
 	"Twitter followers",
 	"Python",
-	"their work",
+	"your work",
 	"coffee",
 	"bugs",
 	"IDL",
-	"data reduction"
-]
+	"data reduction",
+	"habitable exoplanets",
+	"alien life",
+	"life on Mars",
+	"life on Venus",
+	"phosphine molecules",
+	"your publications",
+	"other fields of astronomy",
+	"worm food",
+	"whether astronomy and astrophysics are the same thing",
+	"whether astrology is a real science",
+	"Bayesian statistics",
+	"machine learning",
+	"conference preparation",
+	"your most recent talk",
+] + stars[:6]
 
 # Run the setup function once all names have been loaded
 _setup()

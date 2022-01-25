@@ -120,16 +120,17 @@ def positive_intensifier(dirty):
 	"""Extend a statement of positive feelings."""
 	r = random.random()
 
-	# Increase the probability of not giving a fuck as appropriate.
-	dirty_factor = 2 if dirty else 1
-
-	if r <= (0.5/dirty_factor):
+	if r <= (0.2):
 		verb = random.choice(["say", "do"])
 		return ", and there's nothing anyone can %s to stop you" % verb
-	elif r <= (0.95/dirty_factor):
+	elif r <= (0.4):
 		return ", and you don't care who knows it"
+	elif r <= (0.6):
+		return ", and you should tell everyone about it"
+	elif r <= (0.8):
+		return ", and you must post about it on Twitter"
 	else:
-		return ", and you don't give a fuck"
+		return ", and you must record it in your journal"
 
 
 def consolation(dirty):
@@ -199,15 +200,13 @@ def cosmic_event(dirty):
 	wanky_events = wordlist("wanky_events", dirty)
 	aspects = wordlist("aspects", dirty)
 
-	if r <= 0.25:
+	if r <= 0.15:
 		return random.choice(planets) + " in retrograde"
-	elif r <= 0.5:
+	elif r <= 0.25:
 		c_event = "the " + random.choice(["waxing", "waning"])
-		c_event += " of " + choose_from(planets, ["the moon"], stars)
+		c_event += " of " + choose_from(planets, stars)
 		return c_event
-	elif r <= 0.6:
-		return "the " + random.choice(["New", "Full"]) + " Moon"
-	elif r <= 0.75:
+	elif r <= 0.5:
 		return random.choice(wanky_events)
 	else:
 		first = choose_from(planets, stars, ["Moon"])
@@ -226,7 +225,7 @@ def emotive_event(mood, dirty):
 
 	if random.random() <= 0.5:
 		adj = choose_from(feeling_adjs, emotive_adjs)
-		return "%s %s" % (adj, time_period)
+		return "the %s %s" % (adj, time_period)
 	else:
 		noun = choose_from(feeling_nouns, emotive_nouns)
-		return "%s of %s" % (time_period, noun)
+		return "the %s of %s" % (time_period, noun)
