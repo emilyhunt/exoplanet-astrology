@@ -4,13 +4,46 @@ import random
 
 from datetime import date, timedelta
 
-from .util import choose_from, choose_uniq, sentence_case, ing_to_ed, an
+from .util import choose_from, choose_uniq, sentence_case, ing_to_ed, an, random_space_emoji, nice_date
+from .util import add_random_space_emoji_to_string
 from .wordlist import wordlist
 
-def generate(dirty=False):
+
+star_signs = [
+	"Ariel (Aries :aries:)\n",
+	"Tess (Taurus :taurus:)\n",
+	"Gaia (Gemini :gemini:)\n",
+	"Corot (Cancer :cancer:)\n",
+	"Plato (Leo :leo:)\n",
+	"Ogle (Virgo :virgo:)\n",
+	"Kelt (Libra :libra:)\n",
+	"Cheops (Scorpio :scorpius:)\n",
+	"Harps (Sagittarius :sagittarius:)\n",
+	"Wasp (Capricorn :capricorn:)\n",
+	"Kepler (Aquarius :aquarius:)\n",
+	"Trappist (Pisces :pisces:)\n",
+]
+
+
+def generate_initial_tweet():
+	"""Generates the initial tweet to be used by the bot to celebrate the coming of the horoscopes."""
+	string = random.choice((" Your Daily Exoplanet Horoscope From Out Of This Solar System ",
+							" Today's Exoplanetary Horoscope, :open_mouth: Just For You! ",
+							" Don't Miss Today's Exoplanet Horoscope! What News Do The Exoplanets Bring Today? ",
+							" The Exoplanet Horoscope :open_mouth: For Today! "))
+
+	return (random_space_emoji() + string + random_space_emoji() + "\n" + nice_date()
+			+ "\n\n:down_arrow: Keep Scrolling :down_arrow:")
+
+
+def generate(sign, dirty=False):
 	"""Generate a three to four sentence horoscope."""
 	# Pick a mood (usually positive)
-	mood = "good" if random.random() <= 0.8 else "bad"
+	random_number = random.random()
+	mood = "good" if random_number <= 0.8 else "bad"
+
+	# Make initial text
+	final_text = star_signs[sign]
 
 	discussion_s = choose_from([relationship_s, encounter_s])
 	sentences = [feeling_statement_s, cosmic_implication_s, warning_s, discussion_s]
@@ -18,7 +51,11 @@ def generate(dirty=False):
 	# Select 2 or 3 sentences
 	k = random.randint(2, 3)
 	sentences = random.sample(sentences, k)
-	final_text = " ".join([sentence(mood, dirty) for sentence in sentences])
+
+	out = []
+	for a_sentence in sentences:
+		out.append(a_sentence(mood, dirty))
+	final_text = final_text + " ".join(out)
 
 	# Optionally add a date prediction
 	if random.random() <= 0.5 and k == 2:
@@ -44,6 +81,7 @@ def relationship_s(mood, dirty):
 	topic = choose_from(conversation_topics)
 	s = "Your relationship with %s may be %s " % (person, verb)
 	s += "as the result of %s about %s" % (an(talk), topic)
+	s = add_random_space_emoji_to_string(s)
 
 	return sentence_case(s)
 
@@ -60,6 +98,7 @@ def encounter_s(mood, dirty):
 	preposition = location[0]
 	location = location[1]
 	s1 = "You may meet %s %s %s." % (person, preposition, location)
+	s1 = add_random_space_emoji_to_string(s1)
 
 	# Sentence 2: The discussion
 	discussions = wordlist("neutral_discussions", dirty)
@@ -97,7 +136,7 @@ def date_prediction_s(mood, dirty):
 	else:
 		s = "The events of %s %s have the potential to change your life." % (month, day)
 
-	return sentence_case(s)
+	return add_random_space_emoji_to_string(sentence_case(s), chance=0.8)
 
 
 def feeling_statement_s(mood, dirty):
@@ -113,7 +152,7 @@ def feeling_statement_s(mood, dirty):
 	are = random.choice([" are", "'re"])
 	s = "You%s feeling %s %s" % (are, degree, adj)
 	s += ending(dirty)
-	return sentence_case(s, exciting)
+	return add_random_space_emoji_to_string(sentence_case(s, exciting), chance=0.3)
 
 
 def positive_intensifier(dirty):
@@ -161,7 +200,7 @@ def warning_s(mood, dirty):
 		also_bad = choose_uniq({bad_thing}, avoid_list)
 		s = "For a peaceful week, avoid %s and %s" % (bad_thing, also_bad)
 
-	return sentence_case(s)
+	return add_random_space_emoji_to_string(sentence_case(s))
 
 
 def cosmic_implication_s(mood, dirty):
@@ -189,7 +228,7 @@ def cosmic_implication_s(mood, dirty):
 		e_event = emotive_event('bad', dirty)
 
 	s = "%s %s the %s of %s" % (c_event, verb, junction, e_event)
-	return sentence_case(s)
+	return add_random_space_emoji_to_string(sentence_case(s))
 
 
 def cosmic_event(dirty):
