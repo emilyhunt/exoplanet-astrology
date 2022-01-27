@@ -55,7 +55,7 @@ def post_thread(client, string, tweet_to_reply_to=None):
     return tweet_to_reply_to
 
 
-def post_horoscope(client, interval=60):
+def post_horoscope(client, interval=30):
     """Posts the horoscope for a day!"""
     # Send the initial tweet
     print("Posting initial tweet!")
