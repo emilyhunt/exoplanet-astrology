@@ -3,7 +3,7 @@ import os
 import time
 import emoji
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .util import split_string
 
@@ -50,12 +50,12 @@ def post_thread(client, string, tweet_to_reply_to=None):
 
         # A little bit of slight rate limiting if we're posting a thread
         if i + 1 < len(tweets):
-            time.sleep(10)
+            time.sleep(30)
 
     return tweet_to_reply_to
 
 
-def post_horoscope(client, interval=30):
+def post_horoscope(client, interval=300):
     """Posts the horoscope for a day!"""
     # Send the initial tweet
     print("Posting initial tweet!")
@@ -72,7 +72,7 @@ def post_horoscope(client, interval=30):
     print("All done! \o/")
 
 
-def run_horoscopes(at=10, immediately=False, file_location=None):
+def run_horoscopes(at=11, immediately=False, file_location=None, interval=300):
     """Run the client stuff and post horoscopes routinely!"""
     print("Starting client!")
 
@@ -88,7 +88,7 @@ def run_horoscopes(at=10, immediately=False, file_location=None):
     elif now.hour < at:
         next_run = datetime(year=now.year, month=now.month, day=now.day, hour=at)
     else:
-        next_run = datetime(year=now.year, month=now.month, day=now.day + 1, hour=at)
+        next_run = datetime(year=now.year, month=now.month, day=now.day, hour=at) + timedelta(days=1)
 
     # Main loop
     while True:
@@ -101,7 +101,7 @@ def run_horoscopes(at=10, immediately=False, file_location=None):
             time.sleep(seconds_to_sleep)
 
         # Post the horoscope
-        post_horoscope(client)
+        post_horoscope(client, interval=interval)
 
         # Calculate next runtime
         now = datetime.now()
