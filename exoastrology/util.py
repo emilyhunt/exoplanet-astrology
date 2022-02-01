@@ -2,6 +2,7 @@
 import datetime
 import random
 import emoji
+import numpy as np
 
 
 vowels = {"a", "e", "i", "o", "u"}
@@ -68,29 +69,26 @@ def split_string(string, characters=280):
 		return [string]
 
 	# Otherwise, think of how to split...
-	remaining_length = length
-	remaining_string = string
-	i_split = characters
-	to_return = []
+	# Firstly, make a string where we remove all whitespace
+	split_up_string = np.asarray(string.split())
+	character_counts = [twitter_character_count(a_string) + 1 for a_string in split_up_string]
 
-	while remaining_length > characters - 3:
+	# Work out how many times we'll have to split it up
+	cumulative_n_characters = np.cumsum(character_counts)
+	string_indexes = cumulative_n_characters // (characters - 6)
 
-		# Start at a character and work back
-		if remaining_string[i_split] == " ":
+	# Rejoin the strings together at the identified points
+	unique_indexes = np.unique(string_indexes)
+	to_return = [" ".join(split_up_string[string_indexes == an_index]) for an_index in unique_indexes]
 
-			# Also check the length still makes sense
-			if twitter_character_count(remaining_string[:i_split]) < characters - 3:
+	# And add ellipses
+	n_tweets = len(to_return)
+	for i in range(n_tweets):
 
-				to_return.append(remaining_string[:i_split] + "...")
-				remaining_string = remaining_string[i_split + 1:]
-				remaining_length = twitter_character_count(remaining_string)
-
-		i_split -= 1
-
-		if i_split == 0:
-			raise RuntimeError("I was unable to split this string!")
-
-	to_return.append(remaining_string)
+		if i != n_tweets - 1:
+			to_return[i] = to_return[i] + "..."
+		if i != 0:
+			to_return[i] = "..." + to_return[i]
 
 	return to_return
 

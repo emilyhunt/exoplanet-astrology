@@ -55,7 +55,7 @@ def post_thread(client, string, tweet_to_reply_to=None):
     return tweet_to_reply_to
 
 
-def post_horoscope(client, interval=300):
+def post_horoscope(client, interval=120):
     """Posts the horoscope for a day!"""
     # Send the initial tweet
     print("Posting initial tweet!")
@@ -72,7 +72,7 @@ def post_horoscope(client, interval=300):
     print("All done! \o/")
 
 
-def run_horoscopes(at=11, immediately=False, file_location=None, interval=300):
+def run_horoscopes(at=11, immediately=False, file_location=None, interval=120):
     """Run the client stuff and post horoscopes routinely!"""
     print("Starting client!")
 
