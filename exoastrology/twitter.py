@@ -105,4 +105,4 @@ def run_horoscopes(at=11, immediately=False, file_location=None, interval=120):
 
         # Calculate next runtime
         now = datetime.now()
-        next_run = datetime(year=now.year, month=now.month, day=now.day + 1, hour=at)
+        next_run = datetime(year=now.year, month=now.month, day=now.day, hour=at) + timedelta(days=1)
